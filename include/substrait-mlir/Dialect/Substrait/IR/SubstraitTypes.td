@@ -142,6 +142,25 @@ def Substrait_IntervalDaySecondAttr : Substrait_Attr<"IntervalDaySecond", "inter
   let assemblyFormat = [{ `<` $days_value `` `d` $seconds_value `` `s` `>` }];
 }
 
+def Substrait_UUIDType : Substrait_Type<"UUID", "uuid"> {
+  let summary = "Substrait uuid type";
+  let description = [{
+    This type represents a substrait uuid (universally-unique identifier) type.
+    This is a 16-byte binary value.
+  }];
+}
+
+def Substrait_UUIDAttr : Substrait_Attr<"UUID", "binary",
+[DeclareAttrInterfaceMethods<TypedAttrInterface>]> {
+  let summary = "Substrait uuid type";
+  let description = [{
+    This type represents a substrait uuid (universally-unique identifier) attribute type.
+    This is a 16-byte binary value.
+  }];
+  let parameters = (ins ArrayRefParameter<"uint8_t", "">:$value);
+  let assemblyFormat = [{ `<` $value `>` }];
+}
+
 /// Currently supported atomic types. These correspond directly to the types in
 /// https://github.com/substrait-io/substrait/blob/main/proto/substrait/type.proto.
 // TODO(ingomueller): Add the other low-hanging fruits here.
@@ -162,6 +181,7 @@ def Substrait_AtomicTypes {
     Substrait_TimeType, // Time
     Substrait_IntervalYearMonthType, // IntervalYear
     Substrait_IntervalDaySecondType, // IntervalDay
+    Substrait_UUIDType, // UUID
   ];
 }
 
@@ -183,6 +203,7 @@ def Substrait_AtomicAttributes {
     Substrait_TimeAttr, // Time
     Substrait_IntervalYearMonthAttr, // IntervalYear
     Substrait_IntervalDaySecondAttr, // IntervalDay
+    Substrait_UUIDAttr, // UUID
   ];
 }
 

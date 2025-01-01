@@ -299,6 +299,18 @@ SubstraitExporter::exportType(Location loc, mlir::Type mlirType) {
     return std::move(type);
   }
 
+  // Handle uuid.
+  if (mlirType.isa<UUIDType>()) {
+    // TODO(ingomueller): support other nullability modes.
+    auto uuidType = std::make_unique<proto::Type::UUID>();
+    uuidType->set_nullability(
+        Type_Nullability::Type_Nullability_NULLABILITY_REQUIRED);
+
+    auto type = std::make_unique<proto::Type>();
+    type->set_allocated_uuid(uuidType.release());
+    return std::move(type);
+  }
+
   // Handle tuple types.
   if (auto tupleType = llvm::dyn_cast<TupleType>(mlirType)) {
     auto structType = std::make_unique<proto::Type::Struct>();
@@ -698,7 +710,7 @@ SubstraitExporter::exportOperation(LiteralOp op) {
   else if (literalType.isa<TimeType>()) {
     literal->set_time(value.cast<TimeAttr>().getValue());
   } 
-  // `IntervalYearType`.
+  // `IntervalType`'s.
   else if (literalType.isa<IntervalYearMonthType>()) {
     auto intervalYearToMonth = std::make_unique<
         ::substrait::proto::Expression_Literal_IntervalYearToMonth>();
@@ -708,7 +720,7 @@ SubstraitExporter::exportOperation(LiteralOp op) {
     intervalYearToMonth->set_months(intervalMonth);
     literal->set_allocated_interval_year_to_month(
         intervalYearToMonth.release());
-  } // `IntervalDayType`.
+  } 
   else if (literalType.isa<IntervalDaySecondType>()) {
     auto intervalDaytoSecond = std::make_unique<
         ::substrait::proto::Expression_Literal_IntervalDayToSecond>();
@@ -718,6 +730,9 @@ SubstraitExporter::exportOperation(LiteralOp op) {
     intervalDaytoSecond->set_seconds(intervalSecond);
     literal->set_allocated_interval_day_to_second(
         intervalDaytoSecond.release());
+  } // `UUIDType`.
+  else if (auto uuidType = dyn_cast<UUIDType>(literalType)) {
+    literal->set_allocated_uuid(value.cast<UUIDAttr>().getValue());
   } else
     op->emitOpError("has unsupported value");
 
