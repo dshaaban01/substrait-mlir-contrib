@@ -108,6 +108,22 @@ def Substrait_TimeAttr : Substrait_Attr<"Time", "time",
   let assemblyFormat = [{ `<` $value `` `us` `>` }];
 }
 
+def Substrait_IntervalYearType : Substrait_Type<"IntervalYear", "interval_year"> {
+  let summary = "Substrait interval year to month type";
+  let description = [{
+    This type represents a substrait interval year to month type. 
+  }];
+}
+
+def Substrait_IntervalYearAttr : Substrait_Attr<"IntervalYear", "interval_year"> {
+  let summary = "Substrait interval year to month type";
+  let description = [{
+    This type represents a substrait interval year to month attribute type.
+  }];  
+  let parameters = (ins "int32_t":$years_value, "int32_t":$months_value);
+  let assemblyFormat = [{ `<` $years_value`y` $months_value`m` `>` }];
+}
+
 /// Currently supported atomic types. These correspond directly to the types in
 /// https://github.com/substrait-io/substrait/blob/main/proto/substrait/type.proto.
 // TODO(ingomueller): Add the other low-hanging fruits here.
@@ -126,6 +142,7 @@ def Substrait_AtomicTypes {
     Substrait_TimestampTzType, // TimestampTZ
     Substrait_DateType, // Date
     Substrait_TimeType, // Time
+    Substrait_IntervalYearType, // IntervalYear
   ];
 }
 
@@ -145,6 +162,7 @@ def Substrait_AtomicAttributes {
     Substrait_TimestampTzAttr, // TimestampTZ
     Substrait_DateAttr, // Date
     Substrait_TimeAttr, // Time
+    Substrait_IntervalYearAttr, // IntervalYear
   ];
 }
 
