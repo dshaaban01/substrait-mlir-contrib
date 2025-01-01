@@ -264,6 +264,18 @@ SubstraitExporter::exportType(Location loc, mlir::Type mlirType) {
     return std::move(type);
   }
 
+  // Handle time.
+  if (mlirType.isa<TimeType>()) {
+    // TODO(ingomueller): support other nullability modes.
+    auto timeType = std::make_unique<proto::Type::Time>();
+    timeType->set_nullability(
+        Type_Nullability::Type_Nullability_NULLABILITY_REQUIRED);
+
+    auto type = std::make_unique<proto::Type>();
+    type->set_allocated_time(timeType.release());
+    return std::move(type);
+  }
+
   // Handle tuple types.
   if (auto tupleType = llvm::dyn_cast<TupleType>(mlirType)) {
     auto structType = std::make_unique<proto::Type::Struct>();
@@ -657,6 +669,9 @@ SubstraitExporter::exportOperation(LiteralOp op) {
   } // `DateType`.
   else if (auto binaryType = dyn_cast<DateType>(literalType)) {
     literal->set_date(value.cast<DateAttr>().getValue());
+  } // `TimeType`.
+  else if (literalType.isa<TimeType>()) {
+    literal->set_time(value.cast<TimeAttr>().getValue());
   } else
     op->emitOpError("has unsupported value");
 
