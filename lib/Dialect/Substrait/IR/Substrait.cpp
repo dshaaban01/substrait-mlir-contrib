@@ -102,6 +102,13 @@ void printCountAsAll(OpAsmPrinter &printer, Operation *op, IntegerAttr count) {
 /// Implement the getType method for custom type `TimeAttr`.
 ::mlir::Type TimeAttr::getType() const { return TimeType::get(getContext()); }
 
+/// Implement the getType method for custom type `IntervalYearAttr`.
+::mlir::Type IntervalYearAttr::getType() const { return IntervalYearType::get(getContext()); }
+
+/// Implement the getType method for custom type `IntervalDayAttr`.
+::mlir::Type IntervalDayAttr::getType() const { return IntervalDayType::get(getContext()); }
+
+
 //===----------------------------------------------------------------------===//
 // Substrait operations
 //===----------------------------------------------------------------------===//

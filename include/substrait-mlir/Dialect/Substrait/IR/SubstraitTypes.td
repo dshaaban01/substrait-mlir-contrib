@@ -115,7 +115,8 @@ def Substrait_IntervalYearType : Substrait_Type<"IntervalYear", "interval_year">
   }];
 }
 
-def Substrait_IntervalYearAttr : Substrait_Attr<"IntervalYear", "interval_year"> {
+def Substrait_IntervalYearAttr : Substrait_Attr<"IntervalYear", "interval_year", 
+[DeclareAttrInterfaceMethods<TypedAttrInterface>]> {
   let summary = "Substrait interval year to month type";
   let description = [{
     This type represents a substrait interval year to month attribute type.
@@ -131,7 +132,8 @@ def Substrait_IntervalDayType : Substrait_Type<"IntervalDay", "interval_day"> {
   }];
 }
 
-def Substrait_IntervalDayAttr : Substrait_Attr<"IntervalDay", "interval_day"> {
+def Substrait_IntervalDayAttr : Substrait_Attr<"IntervalDay", "interval_day", 
+[DeclareAttrInterfaceMethods<TypedAttrInterface>]> {
   let summary = "Substrait interval day to second type";
   let description = [{
     This type represents a substrait interval day to second attribute type.

@@ -20,6 +20,45 @@
 // CHECK-NEXT:          read {
 // CHECK:             expressions {
 // CHECK-NEXT:          literal {
+// CHECK-NEXT:            interval_year_to_month {
+// CHECK-NEXT:              years: 2024
+// CHECK-NEXT:              months: 1
+// CHECK-NEXT:            }
+// CHECK-NEXT:          }
+// CHECK-NEXT:        }
+// CHECK-NEXT:        expressions {
+// CHECK-NEXT:          literal {
+// CHECK-NEXT:            interval_day_to_second {
+// CHECK-NEXT:              days: 9
+// CHECK-NEXT:              seconds: 8000
+
+
+substrait.plan version 0 : 42 : 1 {
+  relation {
+    %0 = named_table @t1 as ["a"] : tuple<si1>
+    %1 = project %0 : tuple<si1> -> tuple<si1, !substrait.interval_year, !substrait.interval_day> {
+    ^bb0(%arg : tuple<si1>):
+      %interval_year = literal #substrait.interval_year<2024 y 1m> : !substrait.interval_year
+      %interval_day = literal #substrait.interval_day<9 d 8000 s> : !substrait.interval_day
+      yield %interval_year, %interval_day : !substrait.interval_year, !substrait.interval_day
+    }
+    yield %1 : tuple<si1, !substrait.interval_year, !substrait.interval_day>
+  }
+}
+
+// -----
+
+// CHECK-LABEL: relations {
+// CHECK-NEXT:    rel {
+// CHECK-NEXT:      project {
+// CHECK-NEXT:        common {
+// CHECK-NEXT:          direct {
+// CHECK-NEXT:          }
+// CHECK-NEXT:        }
+// CHECK-NEXT:        input {
+// CHECK-NEXT:          read {
+// CHECK:             expressions {
+// CHECK-NEXT:          literal {
 // CHECK-NEXT:            time: 200000000
 // CHECK-NEXT:          }
 // CHECK-NEXT:        }
