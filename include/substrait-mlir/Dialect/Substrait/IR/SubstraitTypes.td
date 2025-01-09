@@ -12,6 +12,7 @@
 include "substrait-mlir/Dialect/Substrait/IR/SubstraitDialect.td"
 include "mlir/IR/CommonTypeConstraints.td"
 include "mlir/IR/OpBase.td"
+include "mlir/IR/BuiltinAttributeInterfaces.td"
 
 // Base class for Substrait dialect types.
 class Substrait_Type<string name, string typeMnemonic, list<Trait> traits = []>
@@ -97,7 +98,8 @@ def Substrait_TimeType : Substrait_Type<"Time", "time"> {
   }];
 }
 
-def Substrait_TimeAttr : Substrait_Attr<"Time", "time"> {
+def Substrait_TimeAttr : Substrait_Attr<"Time", "time", 
+[DeclareAttrInterfaceMethods<TypedAttrInterface>]> {
   let summary = "Substrait time type";
   let description = [{
     This type represents a substrait time attribute type.
