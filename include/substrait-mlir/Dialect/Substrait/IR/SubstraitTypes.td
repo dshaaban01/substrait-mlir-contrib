@@ -122,7 +122,7 @@ def Substrait_IntervalYearAttr : Substrait_Attr<"IntervalYear", "interval_year",
     This type represents a substrait interval year to month attribute type.
   }];  
   let parameters = (ins "int32_t":$years_value, "int32_t":$months_value);
-  let assemblyFormat = [{ `<` $years_value`y` $months_value`m` `>` }];
+  let assemblyFormat = [{ `<` $years_value `` `y` $months_value `` `m` `>` }];
 }
 
 def Substrait_IntervalDayType : Substrait_Type<"IntervalDay", "interval_day"> {
@@ -139,7 +139,7 @@ def Substrait_IntervalDayAttr : Substrait_Attr<"IntervalDay", "interval_day",
     This type represents a substrait interval day to second attribute type.
   }];  
   let parameters = (ins "int32_t":$days_value, "int32_t":$seconds_value);
-  let assemblyFormat = [{ `<` $days_value`d` $seconds_value`s` `>` }];
+  let assemblyFormat = [{ `<` $days_value `` `d` $seconds_value `` `s` `>` }];
 }
 
 /// Currently supported atomic types. These correspond directly to the types in

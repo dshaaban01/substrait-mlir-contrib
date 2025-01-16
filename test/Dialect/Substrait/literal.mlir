@@ -6,8 +6,8 @@
 // CHECK:         %[[V0:.*]] = named_table
 // CHECK-NEXT:    %[[V1:.*]] = project %[[V0]] : tuple<si1> -> tuple<si1, !substrait.interval_year, !substrait.interval_day> {
 // CHECK-NEXT:    ^[[BB0:.*]](%[[ARG0:.*]]: tuple<si1>):
-// CHECK-NEXT:      %[[V2:.*]] = literal #substrait.interval_year<2024 y 1 m> : !substrait.interval_year 
-// CHECK-NEXT:      %[[V3:.*]] = literal #substrait.interval_day<9 d 8000 s> : !substrait.interval_day
+// CHECK-NEXT:      %[[V2:.*]] = literal #substrait.interval_year<2024y 1m> : !substrait.interval_year 
+// CHECK-NEXT:      %[[V3:.*]] = literal #substrait.interval_day<9d 8000s> : !substrait.interval_day
 // CHECK-NEXT:      yield %[[V2]], %[[V3]] : !substrait.interval_year, !substrait.interval_day
 // CHECK-NEXT:    }
 // CHECK-NEXT:    yield %[[V1]] : tuple<si1, !substrait.interval_year, !substrait.interval_day>
@@ -17,8 +17,8 @@ substrait.plan version 0 : 42 : 1 {
     %0 = named_table @t1 as ["a"] : tuple<si1>
     %1 = project %0 : tuple<si1> -> tuple<si1, !substrait.interval_year, !substrait.interval_day> {
     ^bb0(%arg : tuple<si1>):
-      %interval_year = literal #substrait.interval_year<2024 y 1m> : !substrait.interval_year
-      %interval_day = literal #substrait.interval_day<9 d 8000 s> : !substrait.interval_day
+      %interval_year = literal #substrait.interval_year<2024y 1m> 
+      %interval_day = literal #substrait.interval_day<9d 8000s> 
       yield %interval_year, %interval_day : !substrait.interval_year, !substrait.interval_day
     }
     yield %1 : tuple<si1, !substrait.interval_year, !substrait.interval_day>
