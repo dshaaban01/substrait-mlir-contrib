@@ -277,7 +277,7 @@ SubstraitExporter::exportType(Location loc, mlir::Type mlirType) {
   }
 
   // Handle interval_year.
-  if (mlirType.isa<IntervalYearType>()) {
+  if (mlirType.isa<IntervalYearMonthType>()) {
     // TODO(ingomueller): support other nullability modes.
     auto intervalYearType = std::make_unique<proto::Type::IntervalYear>();
     intervalYearType->set_nullability(
@@ -288,7 +288,7 @@ SubstraitExporter::exportType(Location loc, mlir::Type mlirType) {
     return std::move(type);
   }
   // Handle interval_day.
-  if (mlirType.isa<IntervalDayType>()) {
+  if (mlirType.isa<IntervalDaySecondType>()) {
     // TODO(ingomueller): support other nullability modes.
     auto intervalDayType = std::make_unique<proto::Type::IntervalDay>();
     intervalDayType->set_nullability(
@@ -699,21 +699,21 @@ SubstraitExporter::exportOperation(LiteralOp op) {
     literal->set_time(value.cast<TimeAttr>().getValue());
   } 
   // `IntervalYearType`.
-  else if (literalType.isa<IntervalYearType>()) {
+  else if (literalType.isa<IntervalYearMonthType>()) {
     auto intervalYearToMonth = std::make_unique<
         ::substrait::proto::Expression_Literal_IntervalYearToMonth>();
-    auto intervalYear = value.cast<IntervalYearAttr>().getYearsValue();
-    auto intervalMonth = value.cast<IntervalYearAttr>().getMonthsValue();
+    auto intervalYear = value.cast<IntervalYearMonthAttr>().getYearsValue();
+    auto intervalMonth = value.cast<IntervalYearMonthAttr>().getMonthsValue();
     intervalYearToMonth->set_years(intervalYear);
     intervalYearToMonth->set_months(intervalMonth);
     literal->set_allocated_interval_year_to_month(
         intervalYearToMonth.release());
   } // `IntervalDayType`.
-  else if (literalType.isa<IntervalDayType>()) {
+  else if (literalType.isa<IntervalDaySecondType>()) {
     auto intervalDaytoSecond = std::make_unique<
         ::substrait::proto::Expression_Literal_IntervalDayToSecond>();
-    auto intervalDay = value.cast<IntervalDayAttr>().getDaysValue();
-    auto intervalSecond = value.cast<IntervalDayAttr>().getSecondsValue();
+    auto intervalDay = value.cast<IntervalDaySecondAttr>().getDaysValue();
+    auto intervalSecond = value.cast<IntervalDaySecondAttr>().getSecondsValue();
     intervalDaytoSecond->set_days(intervalDay);
     intervalDaytoSecond->set_seconds(intervalSecond);
     literal->set_allocated_interval_day_to_second(

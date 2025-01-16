@@ -108,14 +108,14 @@ def Substrait_TimeAttr : Substrait_Attr<"Time", "time",
   let assemblyFormat = [{ `<` $value `` `us` `>` }];
 }
 
-def Substrait_IntervalYearType : Substrait_Type<"IntervalYear", "interval_year"> {
+def Substrait_IntervalYearMonthType : Substrait_Type<"IntervalYearMonth", "interval_year_month"> {
   let summary = "Substrait interval year to month type";
   let description = [{
     This type represents a substrait interval year to month type. 
   }];
 }
 
-def Substrait_IntervalYearAttr : Substrait_Attr<"IntervalYear", "interval_year", 
+def Substrait_IntervalYearMonthAttr : Substrait_Attr<"IntervalYearMonth", "interval_year_month", 
 [DeclareAttrInterfaceMethods<TypedAttrInterface>]> {
   let summary = "Substrait interval year to month type";
   let description = [{
@@ -125,14 +125,14 @@ def Substrait_IntervalYearAttr : Substrait_Attr<"IntervalYear", "interval_year",
   let assemblyFormat = [{ `<` $years_value `` `y` $months_value `` `m` `>` }];
 }
 
-def Substrait_IntervalDayType : Substrait_Type<"IntervalDay", "interval_day"> {
+def Substrait_IntervalDaySecondType : Substrait_Type<"IntervalDaySecond", "interval_day_second"> {
   let summary = "Substrait interval day to second type";
   let description = [{
     This type represents a substrait interval day to second type. 
   }];
 }
 
-def Substrait_IntervalDayAttr : Substrait_Attr<"IntervalDay", "interval_day", 
+def Substrait_IntervalDaySecondAttr : Substrait_Attr<"IntervalDaySecond", "interval_day_second", 
 [DeclareAttrInterfaceMethods<TypedAttrInterface>]> {
   let summary = "Substrait interval day to second type";
   let description = [{
@@ -160,8 +160,8 @@ def Substrait_AtomicTypes {
     Substrait_TimestampTzType, // TimestampTZ
     Substrait_DateType, // Date
     Substrait_TimeType, // Time
-    Substrait_IntervalYearType, // IntervalYear
-    Substrait_IntervalDayType, // IntervalDay
+    Substrait_IntervalYearMonthType, // IntervalYear
+    Substrait_IntervalDaySecondType, // IntervalDay
   ];
 }
 
@@ -181,8 +181,8 @@ def Substrait_AtomicAttributes {
     Substrait_TimestampTzAttr, // TimestampTZ
     Substrait_DateAttr, // Date
     Substrait_TimeAttr, // Time
-    Substrait_IntervalYearAttr, // IntervalYear
-    Substrait_IntervalDayAttr, // IntervalDay
+    Substrait_IntervalYearMonthAttr, // IntervalYear
+    Substrait_IntervalDaySecondAttr, // IntervalDay
   ];
 }
 

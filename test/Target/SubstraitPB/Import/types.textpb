@@ -13,7 +13,7 @@
 # CHECK:      substrait.plan
 # CHECK-NEXT:   relation
 # CHECK-NEXT:     named_table
-# CHECK-SAME:       : tuple<!substrait.interval_year, !substrait.interval_day>
+# CHECK-SAME:       : tuple<!substrait.interval_year_month, !substrait.interval_day_second>
 
 relations {
   rel {

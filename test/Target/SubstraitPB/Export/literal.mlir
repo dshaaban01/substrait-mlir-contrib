@@ -32,17 +32,16 @@
 // CHECK-NEXT:              days: 9
 // CHECK-NEXT:              seconds: 8000
 
-
 substrait.plan version 0 : 42 : 1 {
   relation {
     %0 = named_table @t1 as ["a"] : tuple<si1>
-    %1 = project %0 : tuple<si1> -> tuple<si1, !substrait.interval_year, !substrait.interval_day> {
+    %1 = project %0 : tuple<si1> -> tuple<si1, !substrait.interval_year_month, !substrait.interval_day_second> {
     ^bb0(%arg : tuple<si1>):
-      %interval_year = literal #substrait.interval_year<2024 y 1m> : !substrait.interval_year
-      %interval_day = literal #substrait.interval_day<9 d 8000 s> : !substrait.interval_day
-      yield %interval_year, %interval_day : !substrait.interval_year, !substrait.interval_day
+      %interval_year_month = literal #substrait.interval_year_month<2024y 1m> 
+      %interval_day_second = literal #substrait.interval_day_second<9d 8000s> 
+      yield %interval_year_month, %interval_day_second : !substrait.interval_year_month, !substrait.interval_day_second
     }
-    yield %1 : tuple<si1, !substrait.interval_year, !substrait.interval_day>
+    yield %1 : tuple<si1, !substrait.interval_year_month, !substrait.interval_day_second>
   }
 }
 
