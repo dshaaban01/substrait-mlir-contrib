@@ -666,11 +666,11 @@ SubstraitExporter::exportOperation(LiteralOp op) {
     literal->set_timestamp(value.cast<TimestampAttr>().getValue());
   } else if (literalType.isa<TimestampTzType>()) {
     literal->set_timestamp_tz(value.cast<TimestampTzAttr>().getValue());
-  } 
+  }
   // `DateType`.
   else if (auto binaryType = dyn_cast<DateType>(literalType)) {
     literal->set_date(value.cast<DateAttr>().getValue());
-  } 
+  }
   // `TimeType`.
   else if (literalType.isa<TimeType>()) {
     literal->set_time(value.cast<TimeAttr>().getValue());
