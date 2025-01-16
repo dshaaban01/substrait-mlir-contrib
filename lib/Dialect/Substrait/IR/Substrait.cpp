@@ -97,9 +97,7 @@ void printCountAsAll(OpAsmPrinter &printer, Operation *op, IntegerAttr count) {
 }
 
 /// Implement the getType method for custom type `DateAttr`.
-::mlir::Type DateAttr::getType() const {
-  return DateType::get(getContext());
-}
+::mlir::Type DateAttr::getType() const { return DateType::get(getContext()); }
 
 //===----------------------------------------------------------------------===//
 // Substrait operations
