@@ -732,8 +732,7 @@ SubstraitExporter::exportOperation(LiteralOp op) {
         intervalDaytoSecond.release());
   } // `UUIDType`.
   else if (auto uuidType = dyn_cast<UUIDType>(literalType)) {
-    ArrayRef<uint8_t> ref = value.cast<UUIDAttr>().getValue();
-    literal->set_binary(std::string(ref.begin(), ref.end()));  
+    literal->set_uuid(value.cast<StringAttr>().getValue().str());
   } else
     op->emitOpError("has unsupported value");
 
