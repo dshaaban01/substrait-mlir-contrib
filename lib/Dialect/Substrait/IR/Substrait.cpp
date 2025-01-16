@@ -108,6 +108,8 @@ void printCountAsAll(OpAsmPrinter &printer, Operation *op, IntegerAttr count) {
 /// Implement the getType method for custom type `IntervalDaySecondAttr`.
 ::mlir::Type IntervalDaySecondAttr::getType() const { return IntervalDaySecondType::get(getContext()); }
 
+/// Implement the getType method for custom type `UUIDAttr`.
+::mlir::Type UUIDAttr::getType() const { return UUIDType::get(getContext()); }
 
 //===----------------------------------------------------------------------===//
 // Substrait operations

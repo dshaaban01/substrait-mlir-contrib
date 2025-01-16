@@ -383,7 +383,10 @@ importLiteral(ImplicitLocOpBuilder builder,
     return builder.create<LiteralOp>(attr);
   }
   case Expression::Literal::LiteralTypeCase::kUuid: {
-    auto attr = UUIDAttr::get(context, message.time());
+    auto attr = UUIDAttr::get(
+        context, ArrayRef<uint8_t>(
+                     reinterpret_cast<const uint8_t *>(message.uuid().data()),
+                     message.uuid().size()));
     return builder.create<LiteralOp>(attr);
   }
   // TODO(ingomueller): Support more types.
