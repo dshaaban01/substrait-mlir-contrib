@@ -105,7 +105,7 @@ def Substrait_TimeAttr : Substrait_Attr<"Time", "time",
     This type represents a substrait time attribute type.
   }];  
   let parameters = (ins "int64_t":$value);
-  let assemblyFormat = [{ `<` $value `>` }];
+  let assemblyFormat = [{ `<` $value `` `us` `>` }];
 }
 
 /// Currently supported atomic types. These correspond directly to the types in
