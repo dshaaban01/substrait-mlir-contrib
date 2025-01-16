@@ -355,7 +355,7 @@ importLiteral(ImplicitLocOpBuilder builder,
     return builder.create<LiteralOp>(attr);
   }
   case Expression::Literal::LiteralTypeCase::kDate: {
-    auto attr = DateAttr::get(context, message.date());
+    auto attr = StringAttr::get(message.date(), DateType::get(context));
     return builder.create<LiteralOp>(attr);
   }
   // TODO(ingomueller): Support more types.

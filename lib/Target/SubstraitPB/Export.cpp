@@ -655,8 +655,8 @@ SubstraitExporter::exportOperation(LiteralOp op) {
   } else if (literalType.isa<TimestampTzType>()) {
     literal->set_timestamp_tz(value.cast<TimestampTzAttr>().getValue());
   } // `DateType`.
-  else if (literalType.isa<DateType>()) {
-    literal->set_date(value.cast<DateAttr>().getValue());
+  else if (auto binaryType = dyn_cast<DateType>(literalType)) {
+    literal->set_date(value.cast<StringAttr>().getValue().str());
   } else
     op->emitOpError("has unsupported value");
 

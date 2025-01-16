@@ -81,15 +81,6 @@ def Substrait_DateType : Substrait_Type<"Date", "date"> {
   }];
 }
 
-def Substrait_DateAttr : Substrait_Attr<"Date", "date"> {
-  let summary = "Substrait date type";
-  let description = [{
-    This type represents a substrait date attribute type.
-  }];  
-  let parameters = (ins "int32_t":$value);
-  let assemblyFormat = [{ `<` $value `>` }];
-}
-
 /// Currently supported atomic types. These correspond directly to the types in
 /// https://github.com/substrait-io/substrait/blob/main/proto/substrait/type.proto.
 // TODO(ingomueller): Add the other low-hanging fruits here.
@@ -124,7 +115,7 @@ def Substrait_AtomicAttributes {
     TypedStrAttr<Substrait_BinaryType>, // Binary
     Substrait_TimestampAttr, // Timestamp
     Substrait_TimestampTzAttr, // TimestampTZ
-    Substrait_DateAttr, // Date
+    TypedStrAttr<Substrait_DateType>, // Date
   ];
 }
 
