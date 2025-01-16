@@ -81,7 +81,8 @@ def Substrait_DateType : Substrait_Type<"Date", "date"> {
   }];
 }
 
-def Substrait_DateAttr : Substrait_Attr<"Date", "date"> {
+def Substrait_DateAttr : Substrait_Attr<"Date", "date",
+  [DeclareAttrInterfaceMethods<TypedAttrInterface>]> {
   let summary = "Substrait date type";
   let description = [{
     This type represents a substrait date attribute type.
