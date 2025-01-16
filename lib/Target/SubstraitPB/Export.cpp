@@ -697,7 +697,7 @@ SubstraitExporter::exportOperation(LiteralOp op) {
   // `TimeType`.
   else if (literalType.isa<TimeType>()) {
     literal->set_time(value.cast<TimeAttr>().getValue());
-  } 
+  }
   // `IntervalType`'s.
   else if (literalType.isa<IntervalYearMonthType>()) {
     auto intervalYearToMonth = std::make_unique<
