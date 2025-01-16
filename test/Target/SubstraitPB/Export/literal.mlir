@@ -20,14 +20,14 @@
 // CHECK-NEXT:          read {
 // CHECK:             expressions {
 // CHECK-NEXT:          literal {
-// CHECK-NEXT:            string: "1970-01-01" 
+// CHECK-NEXT:            date: 200000000
 
 substrait.plan version 0 : 42 : 1 {
   relation {
     %0 = named_table @t1 as ["a"] : tuple<si1>
     %1 = project %0 : tuple<si1> -> tuple<si1, !substrait.date> {
     ^bb0(%arg : tuple<si1>):
-      %date = literal "1970-01-01" : !substrait.date
+      %date = literal #substrait.date<200000000> : !substrait.date
       yield %date : !substrait.date
     }
     yield %1 : tuple<si1, !substrait.date> 
