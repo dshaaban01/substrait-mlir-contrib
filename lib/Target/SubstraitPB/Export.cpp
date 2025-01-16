@@ -709,7 +709,7 @@ SubstraitExporter::exportOperation(LiteralOp op) {
   // `TimeType`.
   else if (literalType.isa<TimeType>()) {
     literal->set_time(value.cast<TimeAttr>().getValue());
-  } 
+  }
   // `IntervalType`'s.
   else if (literalType.isa<IntervalYearMonthType>()) {
     auto intervalYearToMonth = std::make_unique<
@@ -720,8 +720,7 @@ SubstraitExporter::exportOperation(LiteralOp op) {
     intervalYearToMonth->set_months(intervalMonth);
     literal->set_allocated_interval_year_to_month(
         intervalYearToMonth.release());
-  } 
-  else if (literalType.isa<IntervalDaySecondType>()) {
+  } else if (literalType.isa<IntervalDaySecondType>()) {
     auto intervalDaytoSecond = std::make_unique<
         ::substrait::proto::Expression_Literal_IntervalDayToSecond>();
     auto intervalDay = value.cast<IntervalDaySecondAttr>().getDaysValue();

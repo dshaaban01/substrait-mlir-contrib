@@ -371,15 +371,15 @@ importLiteral(ImplicitLocOpBuilder builder,
     return builder.create<LiteralOp>(attr);
   }
   case Expression::Literal::LiteralTypeCase::kIntervalYearToMonth: {
-    auto attr =
-        IntervalYearMonthAttr::get(context, message.interval_year_to_month().years(),
-                              message.interval_year_to_month().months());
+    auto attr = IntervalYearMonthAttr::get(
+        context, message.interval_year_to_month().years(),
+        message.interval_year_to_month().months());
     return builder.create<LiteralOp>(attr);
   }
   case Expression::Literal::LiteralTypeCase::kIntervalDayToSecond: {
-    auto attr =
-        IntervalDaySecondAttr::get(context, message.interval_day_to_second().days(),
-                             message.interval_day_to_second().seconds());
+    auto attr = IntervalDaySecondAttr::get(
+        context, message.interval_day_to_second().days(),
+        message.interval_day_to_second().seconds());
     return builder.create<LiteralOp>(attr);
   }
   case Expression::Literal::LiteralTypeCase::kUuid: {
